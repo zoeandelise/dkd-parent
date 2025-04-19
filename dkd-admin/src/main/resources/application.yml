@@ -137,10 +137,10 @@ dromara:
     aliyun-oss:
       - platform: aliyun-oss-1 # 存储平台标识
         enable-storage: true  # 启用存储
-        access-key: ??
-        secret-key: ??
-        end-point: ??
-        bucket-name: ??
-        domain: ?? # 访问域名，注意“/”结尾，例如：https://abc.oss-cn-shanghai.aliyuncs.com/
-        base-path: test/ # 基础路径
+        access-key: ${OSS_ACCESS_KEY_ID}
+        secret-key: ${OSS_ACCESS_KEY_SECRET}
+        end-point: oss-cn-heyuan.aliyuncs.com
+        bucket-name: dkd-xjy-itheima
+        domain: https://dkd-xjy-itheima.oss-cn-heyuan.aliyuncs.com/ # 访问域名，注意“/”结尾，例如：https://abc.oss-cn-shanghai.aliyuncs.com/
+        base-path: dkd-images/ # 基础路径
 

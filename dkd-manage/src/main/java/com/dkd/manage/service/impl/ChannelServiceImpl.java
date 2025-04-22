@@ -98,4 +98,14 @@ public class ChannelServiceImpl implements IChannelService
     public int batchInsertChannel(List<Channel> channelList) {
         return channelMapper.batchInsertChannel(channelList);
     }
+
+    /**
+     * 根据skuId查询售货机货道
+     * @param skuIds
+     * @return
+     */
+    @Override
+    public int countChannelBySkuId(Long[] skuIds) {
+        return channelMapper.countChannelBySkuId(skuIds);
+    }
 }

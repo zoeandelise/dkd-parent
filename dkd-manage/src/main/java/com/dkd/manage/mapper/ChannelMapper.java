@@ -64,4 +64,9 @@ public interface ChannelMapper
      * 批量新增售货机货道
      */
     public int batchInsertChannel(List<Channel> channelList);
+
+    /**
+     * 根据skuId查询售货机货道
+     */
+    int countChannelBySkuId(Long[] skuIds);
 }

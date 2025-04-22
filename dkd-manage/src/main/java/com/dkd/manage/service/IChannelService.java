@@ -62,4 +62,11 @@ public interface IChannelService
      * 批量新增售货机货道
      */
     public int batchInsertChannel(List<Channel> channelList);
+
+    /**
+     * 根据商品id查询售货机货道
+     * @param skuIds
+     * @return 统计结果
+     */
+    int countChannelBySkuId(Long[] skuIds);
 }

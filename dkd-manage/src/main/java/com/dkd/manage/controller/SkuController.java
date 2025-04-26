@@ -1,7 +1,10 @@
 package com.dkd.manage.controller;
 
+import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.dkd.manage.service.impl.SkuServiceImpl;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +23,7 @@ import com.dkd.manage.domain.Sku;
 import com.dkd.manage.service.ISkuService;
 import com.dkd.common.utils.poi.ExcelUtil;
 import com.dkd.common.core.page.TableDataInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 商品管理Controller
@@ -54,6 +58,7 @@ public class SkuController extends BaseController
     @PostMapping("/export")
     public void export(HttpServletResponse response, Sku sku)
     {
+        System.out.println(sku);
         List<Sku> list = skuService.selectSkuList(sku);
         ExcelUtil<Sku> util = new ExcelUtil<Sku>(Sku.class);
         util.exportExcel(response, list, "商品管理数据");
@@ -100,5 +105,17 @@ public class SkuController extends BaseController
     public AjaxResult remove(@PathVariable Long[] skuIds)
     {
         return toAjax(skuService.deleteSkuBySkuIds(skuIds));
+    }
+
+    /**
+     * 导入商品管理
+     */
+    @PreAuthorize("@ss.hasPermi('manage:sku:add')")
+    @Log(title = "商品管理", businessType = BusinessType.IMPORT)
+    @PostMapping(value = "/import", consumes = "multipart/form-data")
+    public AjaxResult importData(MultipartFile file) throws Exception {
+        ExcelUtil<Sku> util = new ExcelUtil<Sku>(Sku.class);
+        List<Sku> skuList = util.importExcel(file.getInputStream());
+        return toAjax(skuService.batchInsertSku(skuList));
     }
 }

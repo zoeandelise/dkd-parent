@@ -101,4 +101,9 @@ public class SkuServiceImpl implements ISkuService
     {
         return skuMapper.deleteSkuBySkuId(skuId);
     }
+
+    @Override
+    public int batchInsertSku(List<Sku> skuList) {
+        return skuMapper.batchInsertSku(skuList);
+    }
 }

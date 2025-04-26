@@ -36,6 +36,14 @@ public interface SkuMapper
     public int insertSku(Sku sku);
 
     /**
+     * 批量插入商品管理
+     * @param skuList
+     * @return
+     */
+    public int batchInsertSku(List<Sku> skuList);
+
+
+    /**
      * 修改商品管理
      * 
      * @param sku 商品管理

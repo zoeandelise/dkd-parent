@@ -2,6 +2,7 @@ package com.dkd.manage.service;
 
 import java.util.List;
 import com.dkd.manage.domain.Sku;
+import com.dkd.manage.domain.vo.ChannelVo;
 
 /**
  * 商品管理Service接口
@@ -65,4 +66,17 @@ public interface ISkuService
      * @return
      */
     public int batchInsertSku(List<Sku> skuList);
+
+    /**
+     * 根据商品管理主键查询商品管理
+     * 
+     * @param skuIds 商品管理主键集合
+     * @return 商品管理集合
+     */
+    public List<Sku> selectSkuBySkuIds(Long[] skuIds);
+
+    /**
+     * 根据售货机内部编号查询售货机货道
+     */
+    List<ChannelVo> selectChannelVoListByInnerCode(String innerCode);
 }

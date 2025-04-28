@@ -34,6 +34,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where sku_id = #{skuId}
     </select>
 
+    <select id="selectSkuBySkuIds" parameterType="Long[]" resultMap="SkuResult">
+        <include refid="selectSkuVo"/>
+        where sku_id in
+        <foreach collection="array" item="skuId" open="(" separator="," close=")">
+            #{skuId}
+        </foreach>
+    </select>
+
     <insert id="insertSku" parameterType="Sku" useGeneratedKeys="true" keyProperty="skuId">
         insert into tb_sku
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -59,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">#{updateTime},</if>
          </trim>
     </insert>
-    <insert id="batchInsertSku" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="skuId">
+        <insert id="batchInsertSku" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="skuId">
         insert into tb_sku
         <trim prefix="(" suffix=")" suffixOverrides=",">
             sku_name, sku_image, brand_Name, unit, price, class_id
@@ -76,6 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </trim>
         </foreach>
     </insert>
+    <insert id="insertSkus"></insert>
 
     <update id="updateSku" parameterType="Sku">
         update tb_sku

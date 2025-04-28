@@ -56,12 +56,23 @@ public class SkuController extends BaseController
     @PreAuthorize("@ss.hasPermi('manage:sku:export')")
     @Log(title = "商品管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, Sku sku)
+    public void export(HttpServletResponse response, Sku sku, String skuIds)
     {
-        System.out.println(sku);
-        List<Sku> list = skuService.selectSkuList(sku);
+        List<Sku> list;
+        if (skuIds != null && !skuIds.isEmpty()) {
+            // 根据选中的ID列表导出
+            String[] ids = skuIds.split(",");
+            Long[] skuIdArray = new Long[ids.length];
+            for (int i = 0; i < ids.length; i++) {
+                skuIdArray[i] = Long.valueOf(ids[i]);
+            }
+            list = skuService.selectSkuBySkuIds(skuIdArray);
+        } else {
+            // 根据查询条件导出
+            list = skuService.selectSkuList(sku);
+        }
         ExcelUtil<Sku> util = new ExcelUtil<Sku>(Sku.class);
-        util.exportExcel(response, list, "商品管理数据");
+        util.exportEasyExcel(response, list, "商品管理数据");
     }
 
     /**
@@ -82,6 +93,7 @@ public class SkuController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody Sku sku)
     {
+
         return toAjax(skuService.insertSku(sku));
     }
 
@@ -112,10 +124,10 @@ public class SkuController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('manage:sku:add')")
     @Log(title = "商品管理", businessType = BusinessType.IMPORT)
-    @PostMapping(value = "/import", consumes = "multipart/form-data")
+    @PostMapping(value = "/importData", consumes = "multipart/form-data")
     public AjaxResult importData(MultipartFile file) throws Exception {
         ExcelUtil<Sku> util = new ExcelUtil<Sku>(Sku.class);
-        List<Sku> skuList = util.importExcel(file.getInputStream());
+        List<Sku> skuList = util.importEasyExcel(file.getInputStream()); 
         return toAjax(skuService.batchInsertSku(skuList));
     }
 }

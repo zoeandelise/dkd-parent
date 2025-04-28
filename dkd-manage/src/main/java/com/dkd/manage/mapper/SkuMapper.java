@@ -66,4 +66,14 @@ public interface SkuMapper
      * @return 结果
      */
     public int deleteSkuBySkuIds(Long[] skuIds);
+
+    /**
+     * 根据ID列表查询商品管理
+     * 
+     * @param skuIds 商品管理主键集合
+     * @return 商品管理集合
+     */
+    public List<Sku> selectSkuBySkuIds(Long[] skuIds);
+
+    public int insertSkus(List<Sku> skuList);
 }

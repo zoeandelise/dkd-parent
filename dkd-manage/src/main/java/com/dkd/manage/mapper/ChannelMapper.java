@@ -2,6 +2,7 @@ package com.dkd.manage.mapper;
 
 import java.util.List;
 import com.dkd.manage.domain.Channel;
+import com.dkd.manage.domain.vo.ChannelVo;
 
 /**
  * 售货机货道Mapper接口
@@ -69,4 +70,9 @@ public interface ChannelMapper
      * 根据skuId查询售货机货道
      */
     int countChannelBySkuId(Long[] skuIds);
+
+    /**
+     * 根据售货机内部编号查询售货机货道
+     */
+    List<ChannelVo> selectChannelVoListByInnerCode(String innerCode);
 }

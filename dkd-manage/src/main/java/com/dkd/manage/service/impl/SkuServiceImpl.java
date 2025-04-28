@@ -2,6 +2,7 @@ package com.dkd.manage.service.impl;
 
 import java.util.List;
 import com.dkd.common.utils.DateUtils;
+import com.dkd.manage.domain.vo.ChannelVo;
 import com.dkd.manage.service.IChannelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,5 +106,18 @@ public class SkuServiceImpl implements ISkuService
     @Override
     public int batchInsertSku(List<Sku> skuList) {
         return skuMapper.batchInsertSku(skuList);
+    }
+
+    @Override
+    public List<Sku> selectSkuBySkuIds(Long[] skuIds) {
+        return skuMapper.selectSkuBySkuIds(skuIds);
+    }
+
+    /**
+     * 根据售货机内部编号查询售货机货道
+     */
+    @Override
+    public List<ChannelVo> selectChannelVoListByInnerCode(String innerCode) {
+        return channelService.selectChannelVoListByInnerCode(innerCode);
     }
 }

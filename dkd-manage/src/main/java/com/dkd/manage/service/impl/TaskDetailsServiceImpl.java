@@ -11,7 +11,7 @@ import com.dkd.manage.service.ITaskDetailsService;
  * 工单详情Service业务层处理
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 @Service
 public class TaskDetailsServiceImpl implements ITaskDetailsService 
@@ -89,5 +89,15 @@ public class TaskDetailsServiceImpl implements ITaskDetailsService
     public int deleteTaskDetailsByDetailsId(Long detailsId)
     {
         return taskDetailsMapper.deleteTaskDetailsByDetailsId(detailsId);
+    }
+
+    /**
+     * 批量新增工单详情
+     * @param taskDetailsList
+     * @return 结果
+     */
+    @Override
+    public int batchInsertTaskDetails(List<TaskDetails> taskDetailsList) {
+        return taskDetailsMapper.batchInsertTaskDetails(taskDetailsList);
     }
 }

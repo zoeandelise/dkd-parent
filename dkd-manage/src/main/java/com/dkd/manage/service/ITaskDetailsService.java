@@ -7,7 +7,7 @@ import com.dkd.manage.domain.TaskDetails;
  * 工单详情Service接口
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 public interface ITaskDetailsService 
 {
@@ -53,9 +53,16 @@ public interface ITaskDetailsService
 
     /**
      * 删除工单详情信息
-     * 
+     *
      * @param detailsId 工单详情主键
      * @return 结果
      */
     public int deleteTaskDetailsByDetailsId(Long detailsId);
+
+    /**
+     * 批量新增工单详情
+     * @param taskDetailsList
+     * @return 结果
+     */
+    int batchInsertTaskDetails(List<TaskDetails> taskDetailsList);
 }

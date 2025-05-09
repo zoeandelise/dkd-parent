@@ -25,7 +25,7 @@ import com.dkd.common.core.page.TableDataInfo;
  * 自动补货任务Controller
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 @RestController
 @RequestMapping("/manage/job")

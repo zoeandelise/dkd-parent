@@ -7,7 +7,7 @@ import com.dkd.manage.domain.TaskType;
  * 工单类型Mapper接口
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 public interface TaskTypeMapper 
 {

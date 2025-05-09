@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dkd.manage.mapper.VendoutRunningMapper">
+    
+    <resultMap type="VendoutRunning" id="VendoutRunningResult">
+        <result property="id"    column="id"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="innerCode"    column="inner_code"    />
+        <result property="channelCode"    column="channel_code"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectVendoutRunningVo">
+        select id, order_no, inner_code, channel_code, status, create_time, update_time from tb_vendout_running
+    </sql>
+
+    <select id="selectVendoutRunningList" parameterType="VendoutRunning" resultMap="VendoutRunningResult">
+        <include refid="selectVendoutRunningVo"/>
+        <where>  
+            <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
+            <if test="innerCode != null  and innerCode != ''"> and inner_code = #{innerCode}</if>
+            <if test="channelCode != null  and channelCode != ''"> and channel_code = #{channelCode}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectVendoutRunningById" parameterType="Long" resultMap="VendoutRunningResult">
+        <include refid="selectVendoutRunningVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertVendoutRunning" parameterType="VendoutRunning" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_vendout_running
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">order_no,</if>
+            <if test="innerCode != null and innerCode != ''">inner_code,</if>
+            <if test="channelCode != null">channel_code,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">#{orderNo},</if>
+            <if test="innerCode != null and innerCode != ''">#{innerCode},</if>
+            <if test="channelCode != null">#{channelCode},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVendoutRunning" parameterType="VendoutRunning">
+        update tb_vendout_running
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">order_no = #{orderNo},</if>
+            <if test="innerCode != null and innerCode != ''">inner_code = #{innerCode},</if>
+            <if test="channelCode != null">channel_code = #{channelCode},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteVendoutRunningById" parameterType="Long">
+        delete from tb_vendout_running where id = #{id}
+    </delete>
+
+    <delete id="deleteVendoutRunningByIds" parameterType="String">
+        delete from tb_vendout_running where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -55,6 +55,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
+    <insert id="batchInsertTaskDetails" parameterType="java.util.List">
+        insert into tb_task_details (details_id, task_id, channel_code, expect_capacity, sku_id, sku_name, sku_image)
+        values
+        <foreach collection="list" item="taskDetail" separator=",">
+            (
+            #{taskDetail.detailsId},
+            #{taskDetail.taskId},
+            #{taskDetail.channelCode},
+            #{taskDetail.expectCapacity},
+            #{taskDetail.skuId},
+            #{taskDetail.skuName},
+            #{taskDetail.skuImage}
+            )
+        </foreach>
+    </insert>
+
+
     <update id="updateTaskDetails" parameterType="TaskDetails">
         update tb_task_details
         <trim prefix="SET" suffixOverrides=",">

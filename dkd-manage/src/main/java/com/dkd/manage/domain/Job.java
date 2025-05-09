@@ -9,7 +9,7 @@ import com.dkd.common.core.domain.BaseEntity;
  * 自动补货任务对象 tb_job
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 public class Job extends BaseEntity
 {

@@ -9,7 +9,7 @@ import com.dkd.common.core.domain.BaseEntity;
  * 工单详情对象 tb_task_details
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 public class TaskDetails extends BaseEntity
 {

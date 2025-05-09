@@ -34,6 +34,7 @@ public class VendingMachineController extends BaseController
     @Autowired
     private IVendingMachineService vendingMachineService;
 
+
     /**
      * 查询设备管理列表
      */
@@ -101,4 +102,5 @@ public class VendingMachineController extends BaseController
     {
         return toAjax(vendingMachineService.deleteVendingMachineByIds(ids));
     }
+
 }

@@ -7,7 +7,7 @@ import com.dkd.manage.domain.Job;
  * 自动补货任务Mapper接口
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 public interface JobMapper 
 {

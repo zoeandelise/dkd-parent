@@ -7,7 +7,7 @@ import com.dkd.manage.domain.TaskDetails;
  * 工单详情Mapper接口
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 public interface TaskDetailsMapper 
 {
@@ -58,4 +58,6 @@ public interface TaskDetailsMapper
      * @return 结果
      */
     public int deleteTaskDetailsByDetailsIds(Long[] detailsIds);
+
+    public int batchInsertTaskDetails(List<TaskDetails> taskDetailsList);
 }

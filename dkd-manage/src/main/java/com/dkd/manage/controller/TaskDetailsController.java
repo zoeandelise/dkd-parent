@@ -25,7 +25,7 @@ import com.dkd.common.core.page.TableDataInfo;
  * 工单详情Controller
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 @RestController
 @RequestMapping("/manage/taskDeatils")
@@ -100,5 +100,16 @@ public class TaskDetailsController extends BaseController
     public AjaxResult remove(@PathVariable Long[] detailsIds)
     {
         return toAjax(taskDetailsService.deleteTaskDetailsByDetailsIds(detailsIds));
+    }
+
+    /**
+     * 查看工单补货详情
+     */
+    @PreAuthorize("@ss.hasPermi('manage:taskDetails:list')")
+    @GetMapping(value = "/byTaskId/{taskId}")
+    public AjaxResult byTaskId(@PathVariable("taskId") Long taskId) {
+        TaskDetails taskDetailsParam = new TaskDetails();
+        taskDetailsParam.setTaskId(taskId);
+        return success(taskDetailsService.selectTaskDetailsList(taskDetailsParam));
     }
 }

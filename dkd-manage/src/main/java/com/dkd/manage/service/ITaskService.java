@@ -2,12 +2,14 @@ package com.dkd.manage.service;
 
 import java.util.List;
 import com.dkd.manage.domain.Task;
+import com.dkd.manage.domain.dto.TaskDto;
+import com.dkd.manage.domain.vo.TaskVo;
 
 /**
  * 工单Service接口
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 public interface ITaskService 
 {
@@ -58,4 +60,26 @@ public interface ITaskService
      * @return 结果
      */
     public int deleteTaskByTaskId(Long taskId);
+
+    /**
+     * 查询运维工单列表
+     * @param task
+     * @return TaskVo集合
+     */
+    List<TaskVo> selectTaskVoList(Task task);
+
+    /**
+     * 新增运营、运维工单
+     *
+     * @param taskDto
+     * @return 结果
+     */
+    int insertTaskDto(TaskDto taskDto);
+
+    /**
+     * 取消工单
+     * @param task
+     * @return 结果
+     */
+    int cancelTask(Task task);
 }

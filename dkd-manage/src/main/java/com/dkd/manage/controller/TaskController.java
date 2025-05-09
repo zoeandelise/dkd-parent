@@ -2,6 +2,9 @@ package com.dkd.manage.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.dkd.manage.domain.dto.TaskDto;
+import com.dkd.manage.domain.vo.TaskVo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +28,7 @@ import com.dkd.common.core.page.TableDataInfo;
  * 工单Controller
  * 
  * @author itheima
- * @date 2025-04-27
+ * @date 2025-04-28
  */
 @RestController
 @RequestMapping("/manage/task")
@@ -42,8 +45,8 @@ public class TaskController extends BaseController
     public TableDataInfo list(Task task)
     {
         startPage();
-        List<Task> list = taskService.selectTaskList(task);
-        return getDataTable(list);
+        List<TaskVo> voList = taskService.selectTaskVoList(task);
+        return getDataTable(voList);
     }
 
     /**
@@ -75,11 +78,12 @@ public class TaskController extends BaseController
     @PreAuthorize("@ss.hasPermi('manage:task:add')")
     @Log(title = "工单", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody Task task)
+    public AjaxResult add(@RequestBody TaskDto taskDto)
     {
-        return toAjax(taskService.insertTask(task));
+        // 设置指派人（登录用户）id
+        taskDto.setAssignorId(getUserId());
+        return toAjax(taskService.insertTaskDto(taskDto));
     }
-
     /**
      * 修改工单
      */
@@ -100,5 +104,15 @@ public class TaskController extends BaseController
     public AjaxResult remove(@PathVariable Long[] taskIds)
     {
         return toAjax(taskService.deleteTaskByTaskIds(taskIds));
+    }
+
+    /**
+     * 取消工单
+     */
+    @PreAuthorize("@ss.hasPermi('manage:task:edit')")
+    @Log(title = "工单", businessType = BusinessType.UPDATE)
+    @PutMapping("/cancel")
+    public AjaxResult cancelTask(@RequestBody Task task) {
+        return toAjax(taskService.cancelTask(task));
     }
 }

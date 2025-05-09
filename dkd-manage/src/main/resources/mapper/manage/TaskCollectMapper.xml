@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dkd.manage.mapper.TaskCollectMapper">
+    
+    <resultMap type="TaskCollect" id="TaskCollectResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="finishCount"    column="finish_count"    />
+        <result property="progressCount"    column="progress_count"    />
+        <result property="cancelCount"    column="cancel_count"    />
+        <result property="collectDate"    column="collect_date"    />
+    </resultMap>
+
+    <sql id="selectTaskCollectVo">
+        select id, user_id, finish_count, progress_count, cancel_count, collect_date from tb_task_collect
+    </sql>
+
+    <select id="selectTaskCollectList" parameterType="TaskCollect" resultMap="TaskCollectResult">
+        <include refid="selectTaskCollectVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="finishCount != null "> and finish_count = #{finishCount}</if>
+            <if test="progressCount != null "> and progress_count = #{progressCount}</if>
+            <if test="cancelCount != null "> and cancel_count = #{cancelCount}</if>
+            <if test="collectDate != null "> and collect_date = #{collectDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectTaskCollectById" parameterType="Long" resultMap="TaskCollectResult">
+        <include refid="selectTaskCollectVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTaskCollect" parameterType="TaskCollect" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_task_collect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="finishCount != null">finish_count,</if>
+            <if test="progressCount != null">progress_count,</if>
+            <if test="cancelCount != null">cancel_count,</if>
+            <if test="collectDate != null">collect_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="finishCount != null">#{finishCount},</if>
+            <if test="progressCount != null">#{progressCount},</if>
+            <if test="cancelCount != null">#{cancelCount},</if>
+            <if test="collectDate != null">#{collectDate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTaskCollect" parameterType="TaskCollect">
+        update tb_task_collect
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="finishCount != null">finish_count = #{finishCount},</if>
+            <if test="progressCount != null">progress_count = #{progressCount},</if>
+            <if test="cancelCount != null">cancel_count = #{cancelCount},</if>
+            <if test="collectDate != null">collect_date = #{collectDate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTaskCollectById" parameterType="Long">
+        delete from tb_task_collect where id = #{id}
+    </delete>
+
+    <delete id="deleteTaskCollectByIds" parameterType="String">
+        delete from tb_task_collect where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
